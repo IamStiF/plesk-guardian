@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<extension>
+  <id>plesk-guardian</id>
+  <name>Plesk Guardian</name>
+  <vendor>SQLatte Group</vendor>
+  <version>1.0.0-2025</version>
+  <description>
+    Centralized security dashboard for multi-WordPress monitoring in Plesk.
+  </description>
+  <url>https://grupo.sqlatte.dedyn.io</url>
+  <visible>true</visible>
+  <access>
+    <admin>true</admin>
+    <reseller>false</reseller>
+    <client>false</client>
+  </access>
+</extension>
