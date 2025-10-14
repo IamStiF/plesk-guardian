@@ -16,13 +16,13 @@ jobs:
       # 2️⃣ Crea el ZIP con la estructura correcta (sin carpeta raíz)
       - name: Create ZIP package for Plesk
         run: |
-          zip -r Plesk-Guardian.zip controllers hooks library resources views meta.xml LICENSE README.md
+          zip -r plesk-guardian.zip controllers hooks library resources views meta.xml LICENSE README.md
 
       # 3️⃣ Sube el ZIP al release
       - name: Upload release asset
         uses: softprops/action-gh-release@v1
         with:
-          files: Plesk-Guardian.zip
+          files: plesk-guardian.zip
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
