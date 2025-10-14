@@ -1,0 +1,31 @@
+name: Build and Publish Plesk Guardian Extension
+
+on:
+  release:
+    types: [published]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      # 1️⃣ Clona el código del repo
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # 2️⃣ Crea el ZIP con la estructura correcta (sin carpeta raíz)
+      - name: Create ZIP package for Plesk
+        run: |
+          zip -r Plesk-Guardian.zip controllers hooks library resources views meta.xml LICENSE README.md
+
+      # 3️⃣ Sube el ZIP al release
+      - name: Upload release asset
+        uses: softprops/action-gh-release@v1
+        with:
+          files: Plesk-Guardian.zip
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      # 4️⃣ Muestra confirmación
+      - name: Confirm completed
+        run: echo "✅ Plesk Guardian package built and uploaded successfully!"
