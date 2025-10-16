@@ -1,0 +1,36 @@
+<h2><?= $this->escape($this->pageTitle); ?></h2>
+
+<div class="s-toolbar">
+    <a class="btn" href="<?= $this->escape(pm_Context::getBaseUrl()); ?>index/index?fetchVersion=1">Actualizar con versión</a>
+    <a class="btn" href="<?= $this->escape(pm_Context::getBaseUrl()); ?>settings">Ajustes</a>
+</div>
+
+<p>Escaneando en: <code><?= $this->escape($this->vhostsPath); ?></code></p>
+
+<?php if (empty($this->sites)): ?>
+    <div class="msg-info">No se encontraron instalaciones de WordPress.</div>
+<?php else: ?>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Ruta</th>
+                <th>Versión</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+        <?php foreach ($this->sites as $i => $site): ?>
+            <tr>
+                <td><?= $i + 1 ?></td>
+                <td><code><?= $this->escape($site['path']); ?></code></td>
+                <td><?= isset($this->fetchVersion) && $this->fetchVersion && !empty($site['version']) ? $this->escape($site['version']) : '-' ?></td>
+                <td>
+                    <a class="btn" href="<?= $this->escape(pm_Context::getBaseUrl()); ?>actions/force-https?path=<?= urlencode($site['path']); ?>">Forzar HTTPS</a>
+                    <a class="btn" href="<?= $this->escape(pm_Context::getBaseUrl()); ?>actions/fix-permissions?path=<?= urlencode($site['path']); ?>">Reparar permisos</a>
+                </td>
+            </tr>
+        <?php endforeach; ?>
+        </tbody>
+    </table>
+<?php endif; ?>

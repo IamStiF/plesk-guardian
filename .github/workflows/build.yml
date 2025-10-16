@@ -1,0 +1,26 @@
+name: Build Extension Zip
+
+on:
+  push:
+    branches: [ main ]
+    tags: [ 'v*', 'release-*' ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Prepare dist
+        run: mkdir -p dist
+
+      - name: Zip extension
+        run: |
+          zip -r dist/plesk-guardian.zip . -x '*.git*' -x 'dist/*' -x '.github/*'
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: plesk-guardian
+          path: dist/plesk-guardian.zip

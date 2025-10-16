@@ -1,40 +1,12 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<extension>
-    <id>Plesk-Guardian</id>
-    <name>Plesk Guardian</name>
-    <vendor>SQLatte Group</vendor>
-    <version>1.0.4</version>
-
-    <description>
-        Centralized security dashboard for multi-WordPress monitoring in Plesk.
-        Provides real-time security insights, vulnerability scanning, and
-        integration with WP Toolkit for centralized management.
-    </description>
-
-    <url>https://grupo.sqlatte.dedyn.io</url>
-    <visible>true</visible>
-
-    <access>
-        <admin>true</admin>
-        <reseller>false</reseller>
-        <client>false</client>
-    </access>
-
-    <!-- Declara el modo MVC -->
-    <controllers>
-        <controller>Main</controller>
-    </controllers>
-
-    <!-- Declara los hooks -->
-    <hooks>
-        <hook>IndexHook.php</hook>
-    </hooks>
-
-    <!-- Configuración mínima requerida -->
-    <requires>
-        <plesk>18.0</plesk>
-    </requires>
-
-    <!-- Icono opcional (si aun no se agrega uno, se debe colocar en resources/img/icon.png) -->
-    <!-- <icon>resources/img/icon.png</icon> -->
-</extension>
+<?xml version="1.0" encoding="utf-8"?>
+<module>
+  <id>plesk-guardian</id>
+  <name>Plesk Guardian</name>
+  <description>Centro de mando de seguridad para múltiples sitios WordPress en Plesk (MVP).</description>
+  <category>security</category>
+  <version>1.0.0</version>
+  <release>1</release>
+  <vendor>SQL LATTE / UNA</vendor>
+  <url>https://grupo.sqlatte.dedyn.io</url>
+  <plesk_min_version>18.0</plesk_min_version>
+</module>

@@ -1,5 +1,8 @@
-*.zip
-*.log
-.vscode/
 .idea/
+.vscode/
+dist/
+*.zip
+*.tar.gz
+node_modules/
+vendor/
 .DS_Store
