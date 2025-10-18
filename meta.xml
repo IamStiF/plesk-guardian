@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <module>
-  <id>plesk-guardian</id>
+  <id>plesk_guardian</id>
   <name>Plesk Guardian</name>
   <description>Centro de mando de seguridad para múltiples sitios WordPress en Plesk (MVP).</description>
   <category>security</category>

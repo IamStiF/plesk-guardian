@@ -20,6 +20,7 @@ class IndexController extends pm_Controller_Action
             }
         }
 
+        
         $this->view->vhostsPath = $vhostsPath;
         $this->view->sites = $sites;
         $this->view->fetchVersion = $fetchVersion;
