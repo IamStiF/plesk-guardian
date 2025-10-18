@@ -14,7 +14,6 @@ class IndexController extends pm_Controller_Action
 
         $sites = \Guardian\Scanner::findWpInstallations($vhostsPath);
 
-        // Enriquecer con versión (opcional para rendimiento)
         if ($fetchVersion) {
             foreach ($sites as &$s) {
                 $s['version'] = \Guardian\Commander::wpVersion($s['path']);
