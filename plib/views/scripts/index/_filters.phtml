@@ -1,0 +1,45 @@
+<div class="filters">
+  <div class="filters-header">
+    <h3>Filtros</h3>
+    <button id="clearFilters" class="btn-clear">Limpiar Filtros</button>
+  </div>
+
+  <div class="filter-grid">
+    <div>
+      <label for="filterColumn">Filtrar por:</label>
+      <select id="filterColumn">
+        <option value="dominio">Dominio</option>
+        <option value="modulo">Módulo</option>
+        <option value="pidtid">PID:TID</option>
+        <option value="cliente">Cliente</option>
+        <option value="codigo">Código</option>
+        <option value="mensaje">Mensaje</option>
+      </select>
+    </div>
+
+    <div>
+      <label for="filterValue">Valor:</label>
+      <input type="text" id="filterValue" placeholder="Ingrese valor a buscar">
+    </div>
+
+    <div>
+      <label for="filterNivel">Nivel:</label>
+      <select id="filterNivel">
+        <option value="">Todos</option>
+        <option value="INFO">INFO</option>
+        <option value="WARN">WARNING</option>
+        <option value="ERROR">ERROR</option>
+      </select>
+    </div>
+
+    <div>
+      <label for="filterFechaDesde">Fecha Desde:</label>
+      <input type="datetime-local" id="filterFechaDesde">
+    </div>
+
+    <div>
+      <label for="filterFechaHasta">Fecha Hasta:</label>
+      <input type="datetime-local" id="filterFechaHasta">
+    </div>
+  </div>
+</div>

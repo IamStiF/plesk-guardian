@@ -1,1 +1,27 @@
-.btn{display:inline-block;padding:6px 10px;border:1px solid #ccc;border-radius:6px;text-decoration:none}.table{width:100%;border-collapse:collapse}.table th,.table td{border:1px solid #eee;padding:6px}.msg-info{padding:8px;background:#eef} .s-toolbar{margin:8px 0}
+.btn {
+    display: inline-block;
+    padding: 6px 10px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    text-decoration: none
+}
+
+.table {
+    width: 100%;
+    border-collapse: collapse
+}
+
+.table th,
+.table td {
+    border: 1px solid #eee;
+    padding: 6px
+}
+
+.msg-info {
+    padding: 8px;
+    background: #eef
+}
+
+.s-toolbar {
+    margin: 8px 0
+}

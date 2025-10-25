@@ -1,0 +1,56 @@
+<div class="log-table-container" id="tableContainer">
+  <div id="topScrollbar" class="top-scrollbar"><div></div></div>
+
+  <table id="logTable" class="log-table">
+    <thead>
+      <tr>
+        <th>Origen</th>
+        <th>Nivel</th>
+        <th>Detalles Técnicos</th>
+        <th>Mensaje</th>
+      </tr>
+    </thead>
+    <tbody id="logTableBody">
+      <?php if (!empty($this->entries)): ?>
+        <?php $loopIndex = 0; ?>
+        <?php foreach ($this->entries as $r): ?>
+          <?php
+            $timestamp = htmlspecialchars($r['timestamp'] ?? '');
+            $domain = htmlspecialchars($r['domain'] ?? '');
+            $module = htmlspecialchars($r['module'] ?? '');
+            $level = strtoupper($r['level'] ?? 'INFO');
+            $pidtid = trim(($r['pid'] ?? '') . ':' . ($r['tid'] ?? ''), ':');
+            $client = htmlspecialchars($r['client'] ?? '');
+            $code = htmlspecialchars($r['code'] ?? '');
+            $message = htmlspecialchars($r['message'] ?? '');
+
+            $levelStyles = [
+              'INFO' => 'info',
+              'WARN' => 'warning',
+              'ERROR' => 'error'
+            ];
+            $levelClass = $levelStyles[$level] ?? 'info';
+          ?>
+          <tr class="<?= $loopIndex++ % 2 === 0 ? 'even' : 'odd' ?>">
+            <td>
+              <div class="log-timestamp"><?= $timestamp ?></div>
+              <div class="log-domain"><?= $domain ?></div>
+              <div class="log-module">Módulo: <?= $module ?></div>
+            </td>
+            <td class="text-center">
+              <span class="badge <?= $levelClass ?>"><?= $level ?></span>
+            </td>
+            <td>
+              <div><strong>PID:TID:</strong> <?= $pidtid ?></div>
+              <div><strong>Cliente:</strong> <?= $client ?></div>
+              <div><strong>Código:</strong> <?= $code ?></div>
+            </td>
+            <td><?= $message ?></td>
+          </tr>
+        <?php endforeach; ?>
+      <?php else: ?>
+        <tr><td colspan="4" class="no-logs">No se encontraron logs recientes.</td></tr>
+      <?php endif; ?>
+    </tbody>
+  </table>
+</div>
