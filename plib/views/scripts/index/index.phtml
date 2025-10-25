@@ -1,48 +1,74 @@
 <?php
 /**
- * Plesk Log Viewer
- *
- * @package Plesk_LogViewer
- * @author Plesk International GmbH
- * @license https://www.gnu.org/licenses/agpl-3.0.en.html AGPL-3.0
- * @link https://www.plesk.com/
+ * Plesk Guardian — Consola Centralizada de Logs
+ * Versión sin base de datos (procesa logs en memoria)
  */
 ?>
-<div class="pg-dashboard">
-  <h2>Consola Centralizada de Logs</h2>
-  <p>Mostrando los últimos eventos de todos los dominios, subdominios y herramientas (Plesk y WP Toolkit).</p>
+<div class="pg-dashboard" style="font-family:Segoe UI, sans-serif;">
+    <?php $entries = isset($this->entries) ? (array)$this->entries : []; ?>
 
-  <?php if (!empty($this->entries)): ?>
-    <table class="table" style="width:100%; border-collapse:collapse;">
-      <thead>
-        <tr>
-          <th>Dominio / Fuente</th>
-          <th>Fecha/Hora</th>
-          <th>Nivel</th>
-          <th>Archivo</th>
-          <th>Mensaje</th>
-        </tr>
-      </thead>
-      <tbody>
-        <?php foreach ($this->entries as $e): ?>
-          <tr>
-            <td><strong><?= htmlspecialchars($e['domain']) ?></strong></td>
-            <td><?= htmlspecialchars($e['datetime']) ?></td>
-            <td>
-              <span style="color:
-                <?= $e['severity']=='ERROR'?'#ff4d4d':
-                   ($e['severity']=='WARN'?'#ffb400':'#06b6d4') ?>;
-                font-weight:bold;">
-                <?= htmlspecialchars($e['severity']) ?>
-              </span>
-            </td>
-            <td><?= htmlspecialchars($e['event']) ?></td>
-            <td style="white-space:pre-wrap;"><?= htmlspecialchars($e['message']) ?></td>
-          </tr>
-        <?php endforeach; ?>
-      </tbody>
-    </table>
-  <?php else: ?>
-    <p>No se encontraron logs en los dominios disponibles.</p>
-  <?php endif; ?>
+    <?php if (!empty($entries)): ?>
+        <h2 style="margin-top:10px;">Logs recientes de dominios (<?= count($entries) ?> entradas)</h2>
+
+        <table class="table" style="width:100%; border-collapse:collapse; font-size:13px;">
+            <thead style="background:#f3f3f3;">
+                <tr>
+                    <th style="text-align:left;padding:8px;border-bottom:1px solid #ddd;">Fecha / Hora</th>
+                    <th style="text-align:left;padding:8px;border-bottom:1px solid #ddd;">Dominio</th>
+                    <th style="text-align:left;padding:8px;border-bottom:1px solid #ddd;">Módulo</th>
+                    <th style="text-align:left;padding:8px;border-bottom:1px solid #ddd;">Nivel</th>
+                    <th style="text-align:left;padding:8px;border-bottom:1px solid #ddd;">PID:TID</th>
+                    <th style="text-align:left;padding:8px;border-bottom:1px solid #ddd;">Cliente</th>
+                    <th style="text-align:left;padding:8px;border-bottom:1px solid #ddd;">Código</th>
+                    <th style="text-align:left;padding:8px;border-bottom:1px solid #ddd;">Mensaje</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php foreach ($entries as $r): ?>
+                    <?php
+                        $level = strtoupper($r['level'] ?? 'INFO');
+                        $color = match ($level) {
+                            'ERROR' => '#dc3545',
+                            'WARN', 'WARNING' => '#ffc107',
+                            'NOTICE' => '#17a2b8',
+                            'DEBUG' => '#6c757d',
+                            default => '#28a745',
+                        };
+                    ?>
+                    <tr>
+                        <td style="padding:8px;border-bottom:1px solid #f0f0f0;white-space:nowrap;">
+                            <?= htmlspecialchars($r['timestamp'] ?? '') ?>
+                        </td>
+                        <td style="padding:8px;border-bottom:1px solid #f0f0f0;">
+                            <?= htmlspecialchars($r['domain'] ?? '') ?>
+                        </td>
+                        <td style="padding:8px;border-bottom:1px solid #f0f0f0;">
+                            <?= htmlspecialchars($r['module'] ?? '') ?>
+                        </td>
+                        <td style="padding:8px;border-bottom:1px solid #f0f0f0;">
+                            <span style="display:inline-block;padding:3px 6px;border-radius:4px;background:<?= $color ?>;color:#fff;font-weight:bold;">
+                                <?= htmlspecialchars($level) ?>
+                            </span>
+                        </td>
+                        <td style="padding:8px;border-bottom:1px solid #f0f0f0;">
+                            <?= trim(($r['pid'] ?? '') . ':' . ($r['tid'] ?? ''), ':') ?>
+                        </td>
+                        <td style="padding:8px;border-bottom:1px solid #f0f0f0;">
+                            <?= htmlspecialchars($r['client'] ?? '') ?>
+                        </td>
+                        <td style="padding:8px;border-bottom:1px solid #f0f0f0;">
+                            <?= htmlspecialchars($r['code'] ?? '') ?>
+                        </td>
+                        <td style="padding:8px;border-bottom:1px solid #f0f0f0;max-width:520px;overflow:hidden;text-overflow:ellipsis;">
+                            <?= htmlspecialchars($r['message'] ?? '') ?>
+                        </td>
+                    </tr>
+                <?php endforeach; ?>
+            </tbody>
+        </table>
+    <?php else: ?>
+        <h2>No se encontraron logs recientes</h2>
+        <p>Actualmente no se detectaron entradas en los archivos de log de los dominios.  
+        Asegúrate de que existan archivos <code>error_log</code> en <code>/var/www/vhosts/system/&lt;dominio&gt;/logs/</code> y que Plesk pueda leerlos.</p>
+    <?php endif; ?>
 </div>
