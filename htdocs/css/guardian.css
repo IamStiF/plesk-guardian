@@ -26,8 +26,21 @@ body {
   margin: 0;
 }
 
+.btn-refresh {
+  padding: 10px 20px;
+  background-color: #3498db; 
+  color: white; 
+  border: none; 
+  border-radius: 4px; 
+  cursor: pointer; 
+  font-weight: bold; 
+  display: flex;
+  align-items: center; 
+  gap: 8px;
+}
+
 .btn-clear {
-  background-color: #e74c3c;
+  background-color: #259ccc;
   color: white;
   border: none;
   padding: 10px 20px;
@@ -37,7 +50,7 @@ body {
 }
 
 .btn-clear:hover {
-  background-color: #c0392b;
+  background-color: #2086ae;
 }
 
 .filter-grid {
@@ -89,7 +102,7 @@ body {
 }
 
 .log-table th {
-  background-color: #2c3e50;
+  background-color: #404e5c;
   color: #fff;
   padding: 12px;
   text-align: left;
@@ -164,4 +177,26 @@ body {
 .top-scrollbar div {
   height: 1px;
   min-width: 1000px;
+}
+
+/* ===== Scroll to Top Button ===== */
+.scroll-to-top-btn {
+  position: fixed; 
+  bottom: 30px; 
+  right: 30px; 
+  width: 50px; 
+  height: 50px; 
+  background-color: #2c3e50; 
+  color: white; 
+  border: none; 
+  border-radius: 50%; 
+  cursor: pointer; 
+  box-shadow: 0 4px 8px rgba(0,0,0,0.3); 
+  display: none; 
+  z-index: 1000; 
+  transition: opacity 0.3s, transform 0.3s;
+}
+
+.scroll-to-top-btn:hover {
+  transform: scale(1.1);
 }

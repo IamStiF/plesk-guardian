@@ -4,7 +4,6 @@ class IndexController extends pm_Controller_Action
     public function init()
     {
         parent::init();
-        $this->view->pageTitle = 'Plesk Guardian — Consola Centralizada de Logs';
     }
 
     public function indexAction()

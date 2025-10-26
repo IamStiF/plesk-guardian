@@ -1,13 +1,12 @@
 <div class="log-table-container" id="tableContainer">
   <div id="topScrollbar" class="top-scrollbar"><div></div></div>
-
   <table id="logTable" class="log-table">
     <thead>
       <tr>
-        <th>Origen</th>
-        <th>Nivel</th>
-        <th>Detalles Técnicos</th>
-        <th>Mensaje</th>
+        <th>Origin</th>
+        <th>Level</th>
+        <th>Technical Details</th>
+        <th>Message</th>
       </tr>
     </thead>
     <tbody id="logTableBody">
@@ -35,21 +34,21 @@
             <td>
               <div class="log-timestamp"><?= $timestamp ?></div>
               <div class="log-domain"><?= $domain ?></div>
-              <div class="log-module">Módulo: <?= $module ?></div>
+              <div class="log-module">Module: <?= $module ?></div>
             </td>
             <td class="text-center">
               <span class="badge <?= $levelClass ?>"><?= $level ?></span>
             </td>
             <td>
               <div><strong>PID:TID:</strong> <?= $pidtid ?></div>
-              <div><strong>Cliente:</strong> <?= $client ?></div>
-              <div><strong>Código:</strong> <?= $code ?></div>
+              <div><strong>Client:</strong> <?= $client ?></div>
+              <div><strong>Code:</strong> <?= $code ?></div>
             </td>
             <td><?= $message ?></td>
           </tr>
         <?php endforeach; ?>
       <?php else: ?>
-        <tr><td colspan="4" class="no-logs">No se encontraron logs recientes.</td></tr>
+        <tr><td colspan="4" class="no-logs">No logs found.</td></tr>
       <?php endif; ?>
     </tbody>
   </table>
