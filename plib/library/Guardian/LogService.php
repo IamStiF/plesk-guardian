@@ -14,10 +14,18 @@ class LogService
     {
         $base = "/var/www/vhosts/system/{$domain}/logs";
         return [
-            'apache_access' => "{$base}/access_log",
-            'apache_error'  => "{$base}/error_log",
-            'nginx_access'  => "{$base}/proxy_access_log",
-            'php_error'     => "{$base}/php_error.log",
+            // Apache
+            'apache_access'       => "{$base}/access_log",
+            'apache_access_ssl'   => "{$base}/access_ssl_log",
+            'apache_error'        => "{$base}/error_log",
+
+            // Nginx / reverse proxy (Plesk naming)
+            'nginx_access'        => "{$base}/proxy_access_log",
+            'nginx_access_ssl'    => "{$base}/proxy_access_ssl_log",
+            'nginx_error'         => "{$base}/proxy_error_log",
+
+            // PHP
+            'php_error'           => "{$base}/php_error.log",
         ];
     }
 

@@ -17,24 +17,28 @@ class IndexController extends pm_Controller_Action
             $domains = array_filter(array_map('trim', explode("\n", $cli['stdout'])));
         }
 
-        // 2️⃣ Leer logs de cada dominio
+        // 2️⃣ Leer logs de cada dominio (varios ficheros: error/access/proxy...)
         foreach ($domains as $domain) {
-            $logsDir = "/var/www/vhosts/system/{$domain}/logs";
-            $errorLog = "{$logsDir}/error_log";
+            // obtener rutas conocidas para este dominio desde LogService
+            $paths = \Guardian\LogService::pathsFor($domain);
 
-            if (!is_file($errorLog) || !is_readable($errorLog)) {
-                continue;
-            }
+            foreach ($paths as $label => $path) {
+                if (!is_file($path) || !is_readable($path)) {
+                    continue;
+                }
 
-            // Leer solo las últimas 200 líneas
-            $lines = @file($errorLog, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
-            if (!$lines) continue;
+                // Leer solo las últimas 500 líneas por fichero
+                $lines = @file($path, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
+                if (!$lines) continue;
 
-            $lines = array_slice($lines, -200); // limitar cantidad
-            foreach ($lines as $line) {
-                $parsed = $this->parseLogLine($line);
-                $parsed['domain'] = $domain;
-                $entries[] = $parsed;
+                $lines = array_slice($lines, -500); // limitar cantidad
+                foreach ($lines as $line) {
+                    $parsed = $this->parseLogLine($line);
+                    $parsed['domain'] = $domain;
+                    $parsed['log_label'] = $label; // p.ej. apache_error, nginx_access
+                    $parsed['log_file'] = basename($path);
+                    $entries[] = $parsed;
+                }
             }
         }
 
